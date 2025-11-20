@@ -76,9 +76,10 @@ func TestNewModel(t *testing.T) {
 
 func TestConversationHistoryManagement(t *testing.T) {
 	cfg := &Config{
-		BaseURL:          "http://localhost:1234/v1",
+		BaseURL:          "https://api.moonshot.cn/v1",
 		MaxHistoryLength: 5,
 		SessionTTL:       1 * time.Second,
+		APIKey:           "sk-4nGV86STuhZhzE55008lpNSwA4qx7JW1w0PsKSWjBhWOm7pN",
 	}
 
 	m, err := NewModel("test-model", cfg)
