@@ -32,7 +32,7 @@ func QueryDBTool(ctx tool.Context, input QueryDBInput) (QueryDBOutput, error) {
 
 	dbPort := os.Getenv("DB_PORT")
 	if dbPort == "" {
-		dbPort = "2881"
+		dbPort = "3306"
 	}
 
 	dbUser := os.Getenv("DB_USER")
@@ -42,12 +42,12 @@ func QueryDBTool(ctx tool.Context, input QueryDBInput) (QueryDBOutput, error) {
 
 	dbPassword := os.Getenv("DB_PASSWORD")
 	if dbPassword == "" {
-		dbPassword = ""
+		dbPassword = "Jia011206"
 	}
 
 	dbName := os.Getenv("DB_NAME")
 	if dbName == "" {
-		dbName = "trace_db"
+		dbName = "error"
 	}
 
 	// 构建数据库连接字符串

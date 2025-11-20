@@ -1,4 +1,4 @@
-package tools
+package tools_test
 
 import (
 	"encoding/json"
@@ -6,29 +6,17 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"testing"
 	"time"
 
-	"google.golang.org/adk/tool"
+	"google.golang.org/adk/examples/root_cause_analysis/tools"
 )
 
-// WriteFileInput 定义文件写入工具的输入参数
-type WriteFileInput struct {
-	FilePath string      `json:"file_path"`        // 文件路径（相对于数据目录）
-	Content  interface{} `json:"content"`          // 文件内容（可以是字符串、map、数组等）
-	Format   string      `json:"format,omitempty"` // 文件格式：text, json, csv（默认根据文件扩展名自动判断）
-}
+func TestWriteFileTool(t *testing.T) {
 
-// WriteFileOutput 定义文件写入工具的输出结果
-type WriteFileOutput struct {
-	FilePath string `json:"file_path"`       // 写入的文件路径
-	FileSize int64  `json:"file_size"`       // 文件大小（字节）
-	Success  bool   `json:"success"`         // 是否成功
-	Error    string `json:"error,omitempty"` // 错误信息（如果有）
-}
-
-// WriteFileTool 是一个写入文件的工具函数
-// 用于将分析结果、报告等保存到文件
-func WriteFileTool(ctx tool.Context, input WriteFileInput) (WriteFileOutput, error) {
+	input := tools.WriteFileInput{
+		"report/唐诗", "我测试的", "text",
+	}
 	// 获取数据目录路径
 	dataDir := os.Getenv("DATA_DIR")
 	if dataDir == "" {
@@ -41,35 +29,23 @@ func WriteFileTool(ctx tool.Context, input WriteFileInput) (WriteFileOutput, err
 	//// 安全检查：确保文件在数据目录内
 	absDataDir, err := filepath.Abs(dataDir)
 	if err != nil {
-		return WriteFileOutput{
-			Success: false,
-			Error:   fmt.Sprintf("无法解析数据目录路径: %v", err),
-		}, nil
+		fmt.Sprintf("无法解析数据目录路径: %v", err)
 	}
 
 	absFilePath, err := filepath.Abs(fullPath)
 	if err != nil {
-		return WriteFileOutput{
-			Success: false,
-			Error:   fmt.Sprintf("无法解析文件路径: %v", err),
-		}, nil
+		fmt.Sprintf("无法解析文件路径: %v", err)
 	}
 
 	// 检查文件是否在数据目录内
 	relPath, err := filepath.Rel(absDataDir, absFilePath)
 	if err != nil || relPath == ".." || len(relPath) >= 2 && relPath[:2] == ".." {
-		return WriteFileOutput{
-			Success: false,
-			Error:   "不允许写入数据目录之外的文件",
-		}, nil
+		fmt.Errorf("不允许写入数据目录之外的文件")
 	}
 
 	// 确保目录存在
 	if err := os.MkdirAll(filepath.Dir(absFilePath), 0755); err != nil {
-		return WriteFileOutput{
-			Success: false,
-			Error:   fmt.Sprintf("创建目录失败: %v", err),
-		}, nil
+		fmt.Sprintf("创建目录失败: %v", err)
 	}
 
 	// 确定文件格式
@@ -93,10 +69,8 @@ func WriteFileTool(ctx tool.Context, input WriteFileInput) (WriteFileOutput, err
 		// JSON格式
 		jsonBytes, err := json.MarshalIndent(input.Content, "", "  ")
 		if err != nil {
-			return WriteFileOutput{
-				Success: false,
-				Error:   fmt.Sprintf("JSON序列化失败: %v", err),
-			}, nil
+
+			fmt.Sprintf("JSON序列化失败: %v", err)
 		}
 		contentBytes = jsonBytes
 
@@ -129,16 +103,9 @@ func WriteFileTool(ctx tool.Context, input WriteFileInput) (WriteFileOutput, err
 				}
 				contentBytes = []byte(strings.Join(csvLines, "\n"))
 			} else {
-				return WriteFileOutput{
-					Success: false,
-					Error:   "CSV格式要求内容为map数组",
-				}, nil
+
+				fmt.Printf("CSV格式要求内容为map数组")
 			}
-		} else {
-			return WriteFileOutput{
-				Success: false,
-				Error:   "CSV格式要求内容为数组",
-			}, nil
 		}
 
 	default:
@@ -153,16 +120,10 @@ func WriteFileTool(ctx tool.Context, input WriteFileInput) (WriteFileOutput, err
 
 	// 写入文件
 	if err := os.WriteFile(absFilePath, contentBytes, 0644); err != nil {
-		return WriteFileOutput{
-			Success: false,
-			Error:   fmt.Sprintf("写入文件失败: %v", err),
-		}, nil
+		fmt.Sprintf("写入文件失败: %v", err)
 	}
 
+	fmt.Println(absFilePath)
 	fmt.Println("--> 模型调用了write_file工具" + time.Now().Format("2006-01-02 15:04:05"))
-	return WriteFileOutput{
-		FilePath: input.FilePath,
-		FileSize: int64(len(contentBytes)),
-		Success:  true,
-	}, nil
+	return
 }
