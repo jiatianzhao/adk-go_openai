@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 	"time"
 
@@ -79,7 +80,7 @@ func TestConversationHistoryManagement(t *testing.T) {
 		BaseURL:          "https://api.moonshot.cn/v1",
 		MaxHistoryLength: 5,
 		SessionTTL:       1 * time.Second,
-		APIKey:           "sk-4nGV86STuhZhzE55008lpNSwA4qx7JW1w0PsKSWjBhWOm7pN",
+		APIKey:           os.Getenv("KIMIK2_API_KEY"),
 	}
 
 	m, err := NewModel("test-model", cfg)

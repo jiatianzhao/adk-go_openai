@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 	"testing"
 	"time"
 
@@ -23,7 +24,7 @@ func TestA(t *testing.T) {
 	ctx := context.Background()
 
 	baseURL := "https://api.moonshot.cn/v1"
-	apiKey := "sk-4nGV86STuhZhzE55008lpNSwA4qx7JW1w0PsKSWjBhWOm7pN"
+	apiKey := os.Getenv("KIMIK2_API_KEY")
 	modelName := "kimi-k2-0905-preview"
 	// ========== 步骤 2: 创建 OpenAI 兼容的模型适配器 ==========
 	model, err := openai.NewModel(modelName, &openai.Config{

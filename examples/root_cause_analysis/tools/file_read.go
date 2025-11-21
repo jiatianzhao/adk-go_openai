@@ -114,11 +114,7 @@ func GetFileInputSchema() *jsonschema.Schema {
 	if filePathProp, ok := inputSchema.Properties["file_path"]; ok {
 		filePathProp.Description = "要读取的文件路径，相对于数据目录（data/）的相对路径。例如使用：'payment_service_logs.txt' 或 'trace_data/trace_12345.json'。不允许使用 '..' 等路径遍历符号。"
 		filePathProp.Examples = []any{"payment_service_logs.txt", "trace_data/trace_12345.json", "logs/error_20240115.log"}
-		// 确保 file_path 是必需字段
-		if inputSchema.Required == nil {
-			inputSchema.Required = []string{}
-		}
-		inputSchema.Required = append(inputSchema.Required, "file_path")
 	}
+
 	return inputSchema
 }

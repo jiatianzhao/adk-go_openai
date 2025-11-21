@@ -1,4 +1,4 @@
-	// Copyright 2025 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -576,7 +576,6 @@ func (m *openaiModel) generate(ctx context.Context, req *model.LLMRequest) (*mod
 	// Convert back to genai format
 	return m.convertToLLMResponse(responseMsg, &chatResp.Usage)
 }
-
 
 // makeRequest makes an HTTP request to the OpenAI API.
 func (m *openaiModel) makeRequest(ctx context.Context, req ChatCompletionRequest) ([]byte, error) {

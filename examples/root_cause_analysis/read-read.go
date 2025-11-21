@@ -25,12 +25,7 @@ func main() {
 	if baseURL == "" {
 		baseURL = "https://api.moonshot.cn/v1"
 	}
-
 	apiKey := os.Getenv("KIMIK2_API_KEY")
-	if apiKey == "" {
-		apiKey = "sk-4nGV86STuhZhzE55008lpNSwA4qx7JW1w0PsKSWjBhWOm7pN"
-	}
-
 	modelName := os.Getenv("KIMIK2_MODEL")
 	if modelName == "" {
 		modelName = "kimi-k2-0905-preview"
