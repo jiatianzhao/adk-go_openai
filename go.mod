@@ -2,7 +2,7 @@ module github.com/jiatianzhao/adk-go-openai
 
 go 1.24.4
 
-replace google.golang.org/adk => github.com/jiatianzhao/adk-go-openai v0.1.0
+replace google.golang.org/adk => github.com/jiatianzhao/adk-go-openai v1.0.0
 
 require (
 	cloud.google.com/go/storage v1.56.1
