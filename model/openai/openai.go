@@ -67,7 +67,7 @@ import (
 	"sync"
 	"time"
 
-	"google.golang.org/adk/model"
+	"github.com/jiatianzhao/adk-go-openai/model"
 )
 
 const (
@@ -171,11 +171,11 @@ type ChatCompletionResponse struct {
 
 // Choice represents a completion choice.
 type Choice struct {
-	Index        int              `json:"index"`
-	Message      OpenAIMessage    `json:"message"`
-	Delta        OpenAIMessage    `json:"delta,omitempty"`
-	FinishReason string           `json:"finish_reason,omitempty"`
-	Logprobs     *ChoiceLogprobs  `json:"logprobs,omitempty"`
+	Index        int             `json:"index"`
+	Message      OpenAIMessage   `json:"message"`
+	Delta        OpenAIMessage   `json:"delta,omitempty"`
+	FinishReason string          `json:"finish_reason,omitempty"`
+	Logprobs     *ChoiceLogprobs `json:"logprobs,omitempty"`
 }
 
 // ChoiceLogprobs contains log probability information for the choice.
@@ -701,7 +701,6 @@ func (m *openaiModel) generate(ctx context.Context, req *model.LLMRequest) (*mod
 	// Convert back to genai format (including logprobs if present)
 	return m.convertToLLMResponse(responseMsg, &chatResp.Usage, choice.Logprobs)
 }
-
 
 // makeRequest makes an HTTP request to the OpenAI API.
 func (m *openaiModel) makeRequest(ctx context.Context, req ChatCompletionRequest) ([]byte, error) {

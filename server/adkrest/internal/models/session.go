@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"maps"
 
+	"github.com/jiatianzhao/adk-go-openai/session"
 	"github.com/mitchellh/mapstructure"
-	"google.golang.org/adk/session"
 )
 
 // Session represents an agent's session.

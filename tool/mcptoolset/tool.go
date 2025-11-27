@@ -20,11 +20,11 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/jiatianzhao/adk-go-openai/internal/toolinternal"
+	"github.com/jiatianzhao/adk-go-openai/internal/toolinternal/toolutils"
+	"github.com/jiatianzhao/adk-go-openai/model"
+	"github.com/jiatianzhao/adk-go-openai/tool"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
-	"google.golang.org/adk/internal/toolinternal"
-	"google.golang.org/adk/internal/toolinternal/toolutils"
-	"google.golang.org/adk/model"
-	"google.golang.org/adk/tool"
 	"google.golang.org/genai"
 )
 

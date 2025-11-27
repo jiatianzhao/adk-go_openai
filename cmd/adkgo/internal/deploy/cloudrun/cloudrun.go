@@ -25,9 +25,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/jiatianzhao/adk-go-openai/cmd/adkgo/internal/deploy"
+	"github.com/jiatianzhao/adk-go-openai/internal/cli/util"
 	"github.com/spf13/cobra"
-	"google.golang.org/adk/cmd/adkgo/internal/deploy"
-	"google.golang.org/adk/internal/cli/util"
 )
 
 type gCloudFlags struct {

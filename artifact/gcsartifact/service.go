@@ -32,8 +32,8 @@ import (
 	"strings"
 
 	"cloud.google.com/go/storage"
+	"github.com/jiatianzhao/adk-go-openai/artifact"
 	"golang.org/x/sync/errgroup"
-	"google.golang.org/adk/artifact"
 	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 	"google.golang.org/genai"

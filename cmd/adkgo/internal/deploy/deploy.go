@@ -16,8 +16,8 @@
 package deploy
 
 import (
+	"github.com/jiatianzhao/adk-go-openai/cmd/adkgo/internal/root"
 	"github.com/spf13/cobra"
-	"google.golang.org/adk/cmd/adkgo/internal/root"
 )
 
 // deployCmd represents the deploy command.

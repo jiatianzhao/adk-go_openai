@@ -24,7 +24,7 @@ import (
 	"testing"
 	"time"
 
-	"google.golang.org/adk/tool"
+	"github.com/jiatianzhao/adk-go-openai/tool"
 )
 
 // simpleTool is a simplified tool for testing that doesn't need full tool.Context
@@ -561,9 +561,9 @@ func TestParallelExecWithDependencies(t *testing.T) {
 	}
 
 	tools := map[string]any{
-		"get_data":      tool1,
-		"process_data":  tool2,
-		"save_result":   tool3,
+		"get_data":     tool1,
+		"process_data": tool2,
+		"save_result":  tool3,
 	}
 
 	executor := NewToolExecutor(tools, &ToolExecutorConfig{
@@ -1527,9 +1527,9 @@ func TestRetryBackoffTiming(t *testing.T) {
 		name     string
 		min, max time.Duration
 	}{
-		{"attempt 0->1", 80 * time.Millisecond, 150 * time.Millisecond},   // ~100ms
-		{"attempt 1->2", 150 * time.Millisecond, 250 * time.Millisecond},  // ~200ms
-		{"attempt 2->3", 250 * time.Millisecond, 350 * time.Millisecond},  // ~300ms
+		{"attempt 0->1", 80 * time.Millisecond, 150 * time.Millisecond},  // ~100ms
+		{"attempt 1->2", 150 * time.Millisecond, 250 * time.Millisecond}, // ~200ms
+		{"attempt 2->3", 250 * time.Millisecond, 350 * time.Millisecond}, // ~300ms
 	}
 
 	for i := 0; i < len(times)-1; i++ {
